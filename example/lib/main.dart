@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
           seedColor: context.appColorScheme.primary,
         ),
       ),
-      home: const ManualNavigationRail(),
+      home: const ManualDrawer(),
     );
   }
 }

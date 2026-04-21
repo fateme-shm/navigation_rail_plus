@@ -69,6 +69,9 @@ class _CustomNavigationRailState extends State<CustomNavigationRail> {
   /// Fallback animation duration when not provided via config
   Duration animationDuration = Duration(milliseconds: 250);
 
+  // Scroll controller for handle scrollable items
+  ScrollController scrollController = ScrollController();
+
   /// Navigation controller responsible for:
   /// - expansion/collapse state
   /// - scroll controller
@@ -92,10 +95,9 @@ class _CustomNavigationRailState extends State<CustomNavigationRail> {
     super.initState();
 
     /// Listen to scroll offset to determine divider visibility
-    controller.scrollController.addListener(() {
+    scrollController.addListener(() {
       bool shouldShow =
-          controller.scrollController.hasClients &&
-          controller.scrollController.offset > 4;
+          scrollController.hasClients && scrollController.offset > 4;
 
       /// Update state only when value changes to avoid unnecessary rebuilds
       if (shouldShow != showDivider) {
@@ -109,7 +111,7 @@ class _CustomNavigationRailState extends State<CustomNavigationRail> {
   @override
   void dispose() {
     /// Dispose controller resources (scroll, etc.)
-    controller.disposeVariable();
+    scrollController.dispose();
     super.dispose();
   }
 
@@ -361,7 +363,7 @@ class _CustomNavigationRailState extends State<CustomNavigationRail> {
 
     return ListView(
       padding: EdgeInsets.zero,
-      controller: controller.scrollController,
+      controller: scrollController,
       children: [
         for (int i = 0; i < scrollableItems.length; i++) ...[
           _destinationItemContent(

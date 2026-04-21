@@ -1,6 +1,5 @@
 // Package imports:
 import 'package:get/get.dart';
-import 'package:flutter/material.dart';
 
 import '../res/global_config.dart';
 
@@ -10,8 +9,6 @@ class NavigationController extends GetxController {
 
   final GlobalConfig globalConfig = GlobalConfig();
 
-  final ScrollController scrollController = ScrollController();
-
   // Find navigation rail controller
   NavigationController findNavigationRailController() {
     return Get.find(tag: globalConfig.navRailControllerKey);
@@ -20,9 +17,5 @@ class NavigationController extends GetxController {
   // Toggle extended in navigation rail widget
   void toggleNavigationRail() {
     isNavExpanded.value = !isNavExpanded.value;
-  }
-
-  void disposeVariable() {
-    scrollController.dispose();
   }
 }
