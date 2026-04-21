@@ -20,11 +20,11 @@ A highly customizable, responsive navigation system for Flutter that supports bo
 ---
 ![Navigation rail plus Demo]
 </br>
+<img src="https://github.com/fateme-shm/navigation_rail_plus/blob/main/expand_navigation_rail.png" width="300" alt="Navigation rail expand" />
 </br>
-<img src="https://raw.githubusercontent.com/fateme-shm/ar_captcha/main/collapsed_navigation_rail.png" width="500" alt="Navigation rail collapsed" />
-<img src="https://raw.githubusercontent.com/fateme-shm/ar_captcha/main/expand_navigation_rail.png" width="300" alt="Navigation rail expand" />
+<img src="https://github.com/fateme-shm/navigation_rail_plus/blob/main/collapsed_navigation_rail.png" width="500" alt="Navigation rail collapsed" />
 </br>
-<img src="https://raw.githubusercontent.com/fateme-shm/ar_captcha/main/navigation_drawer.png" width="300" alt="Navigation drawer" />
+<img src="https://github.com/fateme-shm/navigation_rail_plus/blob/main/navigation_drawer.png" width="300" alt="Navigation drawer" />
 
 ---
 
