@@ -1,6 +1,6 @@
 // Package imports:
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:flutter/material.dart';
 
 import '../res/global_config.dart';
 
