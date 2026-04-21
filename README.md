@@ -26,6 +26,7 @@ A highly customizable, responsive navigation system for Flutter that supports bo
 <img src="https://github.com/fateme-shm/navigation_rail_plus/blob/main/expand_navigation_rail.png" width="500" alt="Navigation rail expand" />
 </br>
 <img src="https://github.com/fateme-shm/navigation_rail_plus/blob/main/collapsed_navigation_rail.png" width="500" alt="Navigation rail collapsed" />
+</br>
 #Navigation Drawer
 </br>
 </br>
