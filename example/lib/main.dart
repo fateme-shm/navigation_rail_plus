@@ -1,121 +1,302 @@
 import 'package:flutter/material.dart';
+import 'package:navigation_rail_plus/navigation_rail_plus.dart';
 
-void main() {
-  runApp(const MyApp());
-}
+void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Navigation Rail Plus',
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // TRY THIS: Try running your application with "flutter run". You'll see
-        // the application has a purple toolbar. Then, without quitting the app,
-        // try changing the seedColor in the colorScheme below to Colors.green
-        // and then invoke "hot reload" (save your changes or press the "hot
-        // reload" button in a Flutter-supported IDE, or press "r" if you used
-        // the command line to start the app).
-        //
-        // Notice that the counter didn't reset back to zero; the application
-        // state is not lost during the reload. To reset the state, use hot
-        // restart instead.
-        //
-        // This works for code too, not just values: Most code changes can be
-        // tested with just a hot reload.
-        colorScheme: .fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: context.appColorScheme.primary,
+        ),
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const ManualNavigationRail(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
-  final String title;
+class ManualNavigationRail extends StatefulWidget {
+  const ManualNavigationRail({super.key});
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<ManualNavigationRail> createState() => _ManualNavigationRailState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+class _ManualNavigationRailState extends State<ManualNavigationRail> {
+  int _selectedIndex = 0;
 
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
+  void _handleOnDestination(int index) {
+    setState(() => _selectedIndex = index);
   }
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
     return Scaffold(
-      appBar: AppBar(
-        // TRY THIS: Try changing the color here to a specific color (to
-        // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
-        // change color while the other colors stay the same.
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
+      body: Row(
+        children: [
+          _buildCustomNavigationRail,
+          VerticalDivider(thickness: 1, width: 0),
+          Expanded(child: Column(children: [])),
+        ],
       ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          //
-          // TRY THIS: Invoke "debug painting" (choose the "Toggle Debug Paint"
-          // action in the IDE, or press "p" in the console), to see the
-          // wireframe for each widget.
-          mainAxisAlignment: .center,
+    );
+  }
+
+  Widget get _buildCustomNavigationRail {
+    return CustomNavigationRail(
+      navigationHeaderConfig: NavigationHeaderConfig(header: Text('Header')),
+      selectedIndex: _selectedIndex,
+      navigationLeadingConfig: NavigationLeadingConfig(
+        fixLeadingItems: [
+          CustomNavigationRailDestination(
+            label: 'Home',
+            icon: Icons.home_outlined,
+            selectedIcon: Icons.home,
+          ),
+          CustomNavigationRailDestination(
+            label: 'Category',
+            icon: Icons.category_outlined,
+            selectedIcon: Icons.category,
+          ),
+        ],
+        scrollableLeadingItems: [
+          CustomNavigationRailDestination(
+            label: 'Profile',
+            icon: Icons.person_outline,
+            selectedIcon: Icons.person,
+          ),
+        ],
+      ),
+      onDestinationSelected: (index) {
+        _handleOnDestination(index);
+      },
+      navigationMainContent: [
+        ListView.builder(
+          itemCount: 50,
+          padding: GlobalConfig().globalMargin * 4,
+          shrinkWrap: true,
+          physics: const AlwaysScrollableScrollPhysics(),
+          itemBuilder: (BuildContext context, int index) {
+            return Column(
+              crossAxisAlignment: .start,
+              children: [Text('Item ${index + 1}'), const SizedBox(height: 15)],
+            );
+          },
+        ),
+        // Any other widget you want
+      ],
+      navigationFooterConfig: NavigationFooterConfig(
+        footer: Text('This is footer section.'),
+        trailing: Column(
           children: [
-            const Text('You have pushed the button this many times:'),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
+            Divider(
+              height: 0,
+              thickness: 0.5,
+              color: context.appColorScheme.outlineVariant,
             ),
+            const SizedBox(height: 12),
+            Text('This is trailing.'),
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
+      navigationGlobalConfig: NavigationGlobalConfig(
+        responsiveLayout: false,
+        mode: NavigationRailMode.rail,
+        backgroundColor: context.appColorScheme.surfaceContainerLowest,
+      ),
+    );
+  }
+}
+
+class ManualDrawer extends StatefulWidget {
+  const ManualDrawer({super.key});
+
+  @override
+  State<ManualDrawer> createState() => _ManualDrawerState();
+}
+
+class _ManualDrawerState extends State<ManualDrawer> {
+  int _selectedIndex = 0;
+
+  void _handleOnDestination(int index) {
+    setState(() => _selectedIndex = index);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text('Drawer example')),
+      drawer: _buildCustomDrawer,
+    );
+  }
+
+  Widget get _buildCustomDrawer {
+    return CustomNavigationRail(
+      navigationHeaderConfig: NavigationHeaderConfig(header: Text('Header')),
+      selectedIndex: _selectedIndex,
+      navigationLeadingConfig: NavigationLeadingConfig(
+        fixLeadingItems: [
+          CustomNavigationRailDestination(
+            label: 'Home',
+            icon: Icons.home_outlined,
+            selectedIcon: Icons.home,
+          ),
+          CustomNavigationRailDestination(
+            label: 'Category',
+            icon: Icons.category_outlined,
+            selectedIcon: Icons.category,
+          ),
+        ],
+        scrollableLeadingItems: [
+          CustomNavigationRailDestination(
+            label: 'Profile',
+            icon: Icons.person_outline,
+            selectedIcon: Icons.person,
+          ),
+        ],
+      ),
+      onDestinationSelected: (index) {
+        _handleOnDestination(index);
+      },
+      navigationMainContent: [
+        ListView.builder(
+          itemCount: 50,
+          padding: GlobalConfig().globalMargin * 4,
+          shrinkWrap: true,
+          physics: const AlwaysScrollableScrollPhysics(),
+          itemBuilder: (BuildContext context, int index) {
+            return Column(
+              crossAxisAlignment: .start,
+              children: [Text('Item ${index + 1}'), const SizedBox(height: 15)],
+            );
+          },
+        ),
+        // Any other widget you want
+      ],
+      navigationFooterConfig: NavigationFooterConfig(
+        footer: Text('This is footer section.'),
+        trailing: Column(
+          children: [
+            Divider(
+              height: 0,
+              thickness: 0.5,
+              color: context.appColorScheme.outlineVariant,
+            ),
+            const SizedBox(height: 12),
+            Text('This is trailing.'),
+          ],
+        ),
+      ),
+      navigationGlobalConfig: NavigationGlobalConfig(
+        responsiveLayout: false,
+        mode: NavigationRailMode.drawer,
+        drawerWidth: context.screenWidth * 0.8,
+        backgroundColor: context.appColorScheme.surfaceContainerLowest,
+      ),
+    );
+  }
+}
+
+class AutomaticNavigationRail extends StatefulWidget {
+  const AutomaticNavigationRail({super.key});
+
+  @override
+  State<AutomaticNavigationRail> createState() =>
+      _AutomaticNavigationRailState();
+}
+
+class _AutomaticNavigationRailState extends State<AutomaticNavigationRail> {
+  int _selectedIndex = 0;
+
+  void _handleOnDestination(int index) {
+    setState(() => _selectedIndex = index);
+  }
+
+  Widget get _buildPage {
+    switch (_selectedIndex) {
+      case 0:
+        return Center(child: Text('Home Page'));
+      case 1:
+        return Center(child: Text('Category Page'));
+      case 2:
+        return Center(child: Text('Profile Page'));
+      default:
+        return SizedBox();
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: CustomNavigationRail(
+        navigationHeaderConfig: NavigationHeaderConfig(header: Text('Header')),
+        selectedIndex: _selectedIndex,
+        navigationLeadingConfig: NavigationLeadingConfig(
+          fixLeadingItems: [
+            CustomNavigationRailDestination(
+              label: 'Home',
+              icon: Icons.home_outlined,
+              selectedIcon: Icons.home,
+            ),
+            CustomNavigationRailDestination(
+              label: 'Category',
+              icon: Icons.category_outlined,
+              selectedIcon: Icons.category,
+            ),
+          ],
+          scrollableLeadingItems: [
+            CustomNavigationRailDestination(
+              label: 'Profile',
+              icon: Icons.person_outline,
+              selectedIcon: Icons.person,
+            ),
+          ],
+        ),
+        navigationGlobalConfig: NavigationGlobalConfig(
+          drawerWidth: context.screenWidth * 0.8,
+          backgroundColor: context.appColorScheme.surfaceContainerLowest,
+        ),
+        onDestinationSelected: (index) {
+          _handleOnDestination(index);
+        },
+        navigationMainContent: [
+          ListView.builder(
+            itemCount: 50,
+            padding: GlobalConfig().globalMargin * 4,
+            shrinkWrap: true,
+            physics: const AlwaysScrollableScrollPhysics(),
+            itemBuilder: (BuildContext context, int index) {
+              return Column(
+                crossAxisAlignment: .start,
+                children: [
+                  Text('Item ${index + 1}'),
+                  const SizedBox(height: 15),
+                ],
+              );
+            },
+          ),
+          // Any other widget you want
+        ],
+        responsiveBody: _buildPage,
+        navigationFooterConfig: NavigationFooterConfig(
+          footer: Text('This is footer section.'),
+          trailing: Column(
+            children: [
+              Divider(
+                height: 0,
+                thickness: 0.5,
+                color: context.appColorScheme.outlineVariant,
+              ),
+              const SizedBox(height: 12),
+              Text('This is trailing.'),
+            ],
+          ),
+        ),
       ),
     );
   }

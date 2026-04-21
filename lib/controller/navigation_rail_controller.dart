@@ -1,17 +1,28 @@
 // Package imports:
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class NavigationRailController extends GetxController {
+import '../res/global_config.dart';
+
+class NavigationController extends GetxController {
+  // Handle expanded variable
   RxBool isNavExpanded = true.obs;
 
-  double get normalWidth => 50;
+  final GlobalConfig globalConfig = GlobalConfig();
 
-  double get expandedWidth => 230;
+  final ScrollController scrollController = ScrollController();
 
-  Duration animationDuration = Duration(milliseconds: 250);
+  // Find navigation rail controller
+  NavigationController findNavigationRailController() {
+    return Get.find(tag: globalConfig.navRailControllerKey);
+  }
 
   // Toggle extended in navigation rail widget
   void toggleNavigationRail() {
     isNavExpanded.value = !isNavExpanded.value;
+  }
+
+  void disposeVariable() {
+    scrollController.dispose();
   }
 }
