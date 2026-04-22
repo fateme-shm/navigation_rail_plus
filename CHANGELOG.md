@@ -66,3 +66,8 @@ The format follows **Keep a Changelog** and adheres to **Semantic Versioning**.
 
 * Mobile → Drawer layout
 * Tablet/Desktop → Navigation Rail layout
+
+## [1.0.1]
+
+* Fix reported bug
+* Change navigation rail class name
