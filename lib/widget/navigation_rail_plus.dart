@@ -11,9 +11,9 @@ import 'package:navigation_rail_plus/res/context_extension.dart';
 import 'package:navigation_rail_plus/res/utils/screen_utils.dart';
 import 'package:navigation_rail_plus/enums/navigation_rail_mode.dart';
 import 'package:navigation_rail_plus/controller/navigation_rail_controller.dart';
-import 'package:navigation_rail_plus/model/custom_navigation_rail_destination.dart';
+import 'package:navigation_rail_plus/model/navigation_rail_plus_destination.dart';
 
-class CustomNavigationRail extends StatefulWidget {
+class NavigationRailPlus extends StatefulWidget {
   /// Navigatio header config
   final NavigationHeaderConfig? navigationHeaderConfig;
 
@@ -41,7 +41,7 @@ class CustomNavigationRail extends StatefulWidget {
   /// Returns the selected index.
   final ValueChanged<int>? onDestinationSelected;
 
-  const CustomNavigationRail({
+  const NavigationRailPlus({
     super.key,
     required this.navigationLeadingConfig,
 
@@ -56,10 +56,10 @@ class CustomNavigationRail extends StatefulWidget {
   });
 
   @override
-  State<CustomNavigationRail> createState() => _CustomNavigationRailState();
+  State<NavigationRailPlus> createState() => _NavigationRailPlusState();
 }
 
-class _CustomNavigationRailState extends State<CustomNavigationRail> {
+class _NavigationRailPlusState extends State<NavigationRailPlus> {
   /// Index of the item currently hovered by mouse (used for hover UI state)
   int? hoveredIndex;
 
@@ -83,7 +83,7 @@ class _CustomNavigationRailState extends State<CustomNavigationRail> {
 
   /// Returns combined list of all navigation destinations
   /// (fixed + scrollable)
-  List<CustomNavigationRailDestination> get _allDestinations {
+  List<NavigationRailPlusDestination> get _allDestinations {
     return [
       ...widget.navigationLeadingConfig.fixLeadingItems,
       ...?widget.navigationLeadingConfig.scrollableLeadingItems,
@@ -358,7 +358,7 @@ class _CustomNavigationRailState extends State<CustomNavigationRail> {
 
   // Scroll leading items + body content of navigation
   Widget get _scrollableContent {
-    List<CustomNavigationRailDestination> scrollableItems =
+    List<NavigationRailPlusDestination> scrollableItems =
         widget.navigationLeadingConfig.scrollableLeadingItems ?? [];
 
     return ListView(
@@ -399,7 +399,7 @@ class _CustomNavigationRailState extends State<CustomNavigationRail> {
 
   /// Builds a single navigation item (icon + optional label)
   Widget _destinationItemContent(int index) {
-    CustomNavigationRailDestination item = _allDestinations[index];
+    NavigationRailPlusDestination item = _allDestinations[index];
 
     int selectedIndex = widget.selectedIndex ?? 0;
 

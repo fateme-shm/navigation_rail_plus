@@ -39,7 +39,7 @@ class _ManualNavigationRailState extends State<ManualNavigationRail> {
     return Scaffold(
       body: Row(
         children: [
-          _buildCustomNavigationRail,
+          _buildNavigationRailPlus,
           VerticalDivider(thickness: 1, width: 0),
           Expanded(child: Column(children: [])),
         ],
@@ -47,25 +47,25 @@ class _ManualNavigationRailState extends State<ManualNavigationRail> {
     );
   }
 
-  Widget get _buildCustomNavigationRail {
-    return CustomNavigationRail(
+  Widget get _buildNavigationRailPlus {
+    return NavigationRailPlus(
       navigationHeaderConfig: NavigationHeaderConfig(header: Text('Header')),
       selectedIndex: _selectedIndex,
       navigationLeadingConfig: NavigationLeadingConfig(
         fixLeadingItems: [
-          CustomNavigationRailDestination(
+          NavigationRailPlusDestination(
             label: 'Home',
             icon: Icons.home_outlined,
             selectedIcon: Icons.home,
           ),
-          CustomNavigationRailDestination(
+          NavigationRailPlusDestination(
             label: 'Category',
             icon: Icons.category_outlined,
             selectedIcon: Icons.category,
           ),
         ],
         scrollableLeadingItems: [
-          CustomNavigationRailDestination(
+          NavigationRailPlusDestination(
             label: 'Profile',
             icon: Icons.person_outline,
             selectedIcon: Icons.person,
@@ -131,29 +131,29 @@ class _ManualDrawerState extends State<ManualDrawer> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('Drawer example')),
-      drawer: _buildCustomDrawer,
+      drawer: _buildDrawer,
     );
   }
 
-  Widget get _buildCustomDrawer {
-    return CustomNavigationRail(
+  Widget get _buildDrawer {
+    return NavigationRailPlus(
       navigationHeaderConfig: NavigationHeaderConfig(header: Text('Header')),
       selectedIndex: _selectedIndex,
       navigationLeadingConfig: NavigationLeadingConfig(
         fixLeadingItems: [
-          CustomNavigationRailDestination(
+          NavigationRailPlusDestination(
             label: 'Home',
             icon: Icons.home_outlined,
             selectedIcon: Icons.home,
           ),
-          CustomNavigationRailDestination(
+          NavigationRailPlusDestination(
             label: 'Category',
             icon: Icons.category_outlined,
             selectedIcon: Icons.category,
           ),
         ],
         scrollableLeadingItems: [
-          CustomNavigationRailDestination(
+          NavigationRailPlusDestination(
             label: 'Profile',
             icon: Icons.person_outline,
             selectedIcon: Icons.person,
@@ -233,24 +233,24 @@ class _AutomaticNavigationRailState extends State<AutomaticNavigationRail> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: CustomNavigationRail(
+      body: NavigationRailPlus(
         navigationHeaderConfig: NavigationHeaderConfig(header: Text('Header')),
         selectedIndex: _selectedIndex,
         navigationLeadingConfig: NavigationLeadingConfig(
           fixLeadingItems: [
-            CustomNavigationRailDestination(
+            NavigationRailPlusDestination(
               label: 'Home',
               icon: Icons.home_outlined,
               selectedIcon: Icons.home,
             ),
-            CustomNavigationRailDestination(
+            NavigationRailPlusDestination(
               label: 'Category',
               icon: Icons.category_outlined,
               selectedIcon: Icons.category,
             ),
           ],
           scrollableLeadingItems: [
-            CustomNavigationRailDestination(
+            NavigationRailPlusDestination(
               label: 'Profile',
               icon: Icons.person_outline,
               selectedIcon: Icons.person,

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 ///
 /// Each destination defines an icon, optional selected icon, label,
 /// and an optional disabled state to control interaction.
-class CustomNavigationRailDestination {
+class NavigationRailPlusDestination {
   /// Default icon shown when the item is not selected.
   final IconData icon;
 
@@ -22,7 +22,7 @@ class CustomNavigationRailDestination {
   final bool disabled;
 
   /// Creates a navigation rail destination item.
-  const CustomNavigationRailDestination({
+  const NavigationRailPlusDestination({
     required this.icon,
     required this.label,
     this.selectedIcon,

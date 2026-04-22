@@ -18,6 +18,7 @@ A highly customizable, responsive navigation system for Flutter that supports bo
 * Clean and scalable architecture
 
 ---
+
 ## Demo
 
 #Navigation rail
@@ -48,16 +49,16 @@ dependencies:
 ## 🚀 Quick Start
 
 ```
-CustomNavigationRail(
+NavigationRailPlus(
   selectedIndex: 0,
   responsiveBody: YourMainScreen(),
   navigationLeadingConfig: NavigationLeadingConfig(
     fixLeadingItems: [
-      CustomNavigationRailDestination(
+      NavigationRailPlusDestination(
         icon: Icons.home,
         label: 'Home',
       ),
-      CustomNavigationRailDestination(
+      NavigationRailPlusDestination(
         icon: Icons.settings,
         label: 'Settings',
       ),
@@ -75,13 +76,13 @@ CustomNavigationRail(
 
 The system is built using multiple configuration classes:
 
-| Config                            | Responsibility                     |
-|-----------------------------------|------------------------------------|
-| `NavigationGlobalConfig`          | Layout behavior, animation, sizing |
-| `NavigationHeaderConfig`          | Top header UI                      |
-| `NavigationLeadingConfig`         | Navigation items                   |
-| `NavigationFooterConfig`          | Bottom section                     |
-| `CustomNavigationRailDestination` | Individual item                    |
+| Config                          | Responsibility                     |
+|---------------------------------|------------------------------------|
+| `NavigationGlobalConfig`        | Layout behavior, animation, sizing |
+| `NavigationHeaderConfig`        | Top header UI                      |
+| `NavigationLeadingConfig`       | Navigation items                   |
+| `NavigationFooterConfig`        | Bottom section                     |
+| `NavigationRailPlusDestination` | Individual item                    |
 
 ---
 
@@ -141,13 +142,13 @@ NavigationHeaderConfig(
 ```
 NavigationLeadingConfig(
   fixLeadingItems: [
-    CustomNavigationRailDestination(
+    NavigationRailPlusDestination(
       icon: Icons.dashboard,
       label: "Dashboard",
     ),
   ],
   scrollableLeadingItems: [
-    CustomNavigationRailDestination(
+    NavigationRailPlusDestination(
       icon: Icons.person,
       label: "Profile",
     ),
@@ -179,7 +180,7 @@ NavigationFooterConfig(
 ### 5. Destination Item
 
 ```
-CustomNavigationRailDestination(
+NavigationRailPlusDestination(
   icon: Icons.home,
   selectedIcon: Icons.home_filled,
   label: "Home",
@@ -192,7 +193,7 @@ CustomNavigationRailDestination(
 ## 🎯 Full Example
 
 ```
-CustomNavigationRail(
+NavigationRailPlus(
   selectedIndex: 1,
 
   navigationGlobalConfig: NavigationGlobalConfig(
@@ -206,11 +207,11 @@ CustomNavigationRail(
 
   navigationLeadingConfig: NavigationLeadingConfig(
     fixLeadingItems: [
-      CustomNavigationRailDestination(
+      NavigationRailPlusDestination(
         icon: Icons.home,
         label: "Home",
       ),
-      CustomNavigationRailDestination(
+      NavigationRailPlusDestination(
         icon: Icons.settings,
         label: "Settings",
       ),
@@ -260,7 +261,7 @@ CustomNavigationRail(
 ### Disabled Items
 
 ```
-CustomNavigationRailDestination(
+NavigationRailPlusDestination(
   icon: Icons.lock,
   label: 'Locked',
   disabled: true,
@@ -315,7 +316,7 @@ across your configuration classes and main widget.
 
 # 📘 API Reference
 
-## `CustomNavigationRail`
+## `NavigationRailPlus`
 
 | Property                  | Type                      | Default      | Description                                                  |
 |---------------------------|---------------------------|--------------|--------------------------------------------------------------|
@@ -360,16 +361,16 @@ across your configuration classes and main widget.
 
 ## `NavigationLeadingConfig`
 
-| Property                 | Type                                     | Default          | Description                              |
-|--------------------------|------------------------------------------|------------------|------------------------------------------|
-| `fixLeadingItems`        | `List<CustomNavigationRailDestination>`  | **required**     | Always visible (non-scrollable) items    |
-| `scrollableLeadingItems` | `List<CustomNavigationRailDestination>?` | `null`           | Scrollable navigation items              |
-| `leadingColor`           | `Color?`                                 | Theme-based      | Default icon & text color                |
-| `selectedLeadingColor`   | `Color?`                                 | Theme-based      | Color when item is selected              |
-| `leadingHoverColor`      | `Color?`                                 | Theme-based      | Background color on hover                |
-| `leadingIconSize`        | `double?`                                | Theme-based      | Icon size                                |
-| `leadingIconPadding`     | `EdgeInsets?`                            | Internal default | Padding around each item                 |
-| `needTooltip`            | `bool`                                   | `true`           | Shows tooltip (useful in collapsed mode) |
+| Property                 | Type                                   | Default          | Description                              |
+|--------------------------|----------------------------------------|------------------|------------------------------------------|
+| `fixLeadingItems`        | `List<NavigationRailPlusDestination>`  | **required**     | Always visible (non-scrollable) items    |
+| `scrollableLeadingItems` | `List<NavigationRailPlusDestination>?` | `null`           | Scrollable navigation items              |
+| `leadingColor`           | `Color?`                               | Theme-based      | Default icon & text color                |
+| `selectedLeadingColor`   | `Color?`                               | Theme-based      | Color when item is selected              |
+| `leadingHoverColor`      | `Color?`                               | Theme-based      | Background color on hover                |
+| `leadingIconSize`        | `double?`                              | Theme-based      | Icon size                                |
+| `leadingIconPadding`     | `EdgeInsets?`                          | Internal default | Padding around each item                 |
+| `needTooltip`            | `bool`                                 | `true`           | Shows tooltip (useful in collapsed mode) |
 
 ---
 
@@ -384,7 +385,7 @@ across your configuration classes and main widget.
 
 ---
 
-## `CustomNavigationRailDestination`
+## `NavigationRailPlusDestination`
 
 | Property       | Type        | Default      | Description                  |
 |----------------|-------------|--------------|------------------------------|

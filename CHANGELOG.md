@@ -11,7 +11,7 @@ The format follows **Keep a Changelog** and adheres to **Semantic Versioning**.
 ### ✨ Added
 
 * Initial release of `navigation_rail_plus`
-* Fully customizable `CustomNavigationRail` widget
+* Fully customizable `NavigationRail` widget
 * Support for both **Navigation Rail** and **Drawer** modes
 * Automatic responsive layout (Rail ↔ Drawer)
 
@@ -56,7 +56,7 @@ The format follows **Keep a Changelog** and adheres to **Semantic Versioning**.
 
 ### 🧩 Components
 
-* `CustomNavigationRailDestination`
+* `NavigationRailPlusDestination`
 
     * Icon and optional selected icon
     * Label support

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:navigation_rail_plus/model/custom_navigation_rail_destination.dart';
+import 'package:navigation_rail_plus/model/navigation_rail_plus_destination.dart';
 
 /// Configuration for navigation leading items (main navigation section).
 ///
@@ -28,11 +28,11 @@ class NavigationLeadingConfig {
   final bool needTooltip;
 
   /// List of fixed navigation destinations (always visible, non-scrollable).
-  final List<CustomNavigationRailDestination> fixLeadingItems;
+  final List<NavigationRailPlusDestination> fixLeadingItems;
 
   /// Optional list of additional navigation destinations
   /// displayed inside a scrollable container.
-  final List<CustomNavigationRailDestination>? scrollableLeadingItems;
+  final List<NavigationRailPlusDestination>? scrollableLeadingItems;
 
   NavigationLeadingConfig({
     required this.fixLeadingItems,
