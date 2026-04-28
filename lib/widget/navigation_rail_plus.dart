@@ -12,9 +12,13 @@ import 'package:navigation_rail_plus/res/utils/screen_utils.dart';
 import 'package:navigation_rail_plus/enums/navigation_rail_mode.dart';
 import 'package:navigation_rail_plus/controller/navigation_controller.dart';
 import 'package:navigation_rail_plus/model/navigation_rail_plus_destination.dart';
+import 'package:navigation_rail_plus/widget/scaffold/bottom_app_bar_section.dart';
 import 'package:navigation_rail_plus/widget/scaffold/custom_scaffold.dart';
 
 class NavigationRailPlus extends StatefulWidget {
+  // External globalKey
+  final GlobalKey<ScaffoldState>? externalScaffoldKey;
+
   /// Navigatio header config
   final NavigationHeaderConfig? navigationHeaderConfig;
 
@@ -46,13 +50,7 @@ class NavigationRailPlus extends StatefulWidget {
   /// Scaffold data/variable section
   ///----------------------------------------------------
 
-  /// Scaffold key for controlling drawer programmatically
-  final GlobalKey<ScaffoldState>? scaffoldKey;
-
   /// AppBar related properties
-
-  /// If you don't need appBar at all
-  final bool needNoAppBar;
 
   /// Whether to center the title
   final bool appBarCenterTitle;
@@ -191,6 +189,7 @@ class NavigationRailPlus extends StatefulWidget {
     super.key,
     required this.navigationLeadingConfig,
 
+    this.externalScaffoldKey,
     this.selectedIndex = 0,
 
     this.responsiveBody,
@@ -203,7 +202,7 @@ class NavigationRailPlus extends StatefulWidget {
     ///----------------------------------------------------
     /// Scaffold data/variable section
     ///----------------------------------------------------
-    this.scaffoldKey,
+
     // App bar related
     this.appBar,
     this.appBarText,
@@ -215,7 +214,6 @@ class NavigationRailPlus extends StatefulWidget {
     this.appBarBackgroundColor,
     this.appBarBottomRxLoading,
     this.appBarBackButtonColor,
-    this.needNoAppBar = false,
     this.appBarCenterTitle = false,
     this.appBarBottomLoading = false,
     this.appBarBottomDivider = false,
@@ -272,6 +270,9 @@ class NavigationRailPlus extends StatefulWidget {
 }
 
 class _NavigationRailPlusState extends State<NavigationRailPlus> {
+  /// Scaffold key base on user key given
+  GlobalKey<ScaffoldState>? scaffoldKey;
+
   /// Index of the item currently hovered by mouse (used for hover UI state)
   int? hoveredIndex;
 
@@ -302,11 +303,14 @@ class _NavigationRailPlusState extends State<NavigationRailPlus> {
     ];
   }
 
-  GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
-
   @override
   void initState() {
     super.initState();
+
+    /// Add scaffold key base on 2 option
+    /// 1. Use external key
+    /// 2. Use default key
+    scaffoldKey = widget.externalScaffoldKey ?? GlobalKey<ScaffoldState>();
 
     /// Listen to scroll offset to determine divider visibility
     scrollController.addListener(() {
@@ -367,13 +371,12 @@ class _NavigationRailPlusState extends State<NavigationRailPlus> {
       builder: (context) {
         return CustomScaffold(
           canPop: widget.canPop,
-          scaffoldKey: widget.scaffoldKey ?? scaffoldKey,
+          scaffoldKey: scaffoldKey,
           onPopInvokedWithResult: widget.onPopInvokedWithResult,
           isSafeAreaTop: widget.isSafeAreaTop,
           isSafeAreaBottom: widget.isSafeAreaBottom,
           resizeToAvoidBottomInset: widget.resizeToAvoidBottomInset,
           extendBodyBehindAppBar: widget.extendBodyBehindAppBar,
-          needNoAppBar: widget.needNoAppBar,
           appBarText: widget.appBarText,
           appBarActions: widget.appBarActions,
           appBarTextStyle: widget.appBarTextStyle,
@@ -413,13 +416,33 @@ class _NavigationRailPlusState extends State<NavigationRailPlus> {
           appBar:
               widget.appBar ??
               AppBar(
-                /// Opens navigation drawer
-                leading: IconButton(
-                  icon: Icon(CupertinoIcons.line_horizontal_3),
-                  onPressed: () => (widget.scaffoldKey ?? scaffoldKey)
-                      .currentState
-                      ?.openDrawer(),
+                forceMaterialTransparency:
+                    widget.appBarForceMaterialTransparency ?? true,
+                bottom: BottomAppBarSection(
+                  isLoading: widget.appBarBottomLoading ?? false,
+                  isDivider: widget.appBarBottomDivider ?? false,
+                  rxLoading: widget.appBarBottomRxLoading,
                 ),
+                centerTitle: widget.appBarCenterTitle,
+                backgroundColor: widget.appBarBackgroundColor,
+                actions: widget.appBarActions,
+                titleSpacing: widget.appBarTitleSpacing,
+                title: widget.appBarText != null
+                    ? Text(
+                        widget.appBarText ?? '',
+                        style: widget.appBarTextStyle,
+                      )
+                    : null,
+
+                /// Opens navigation drawer
+                leading:
+                    widget.appBarBackButton ??
+                    IconButton(
+                      icon: Icon(CupertinoIcons.line_horizontal_3),
+                      onPressed:
+                          widget.appBarBackButtonTap ??
+                          () => scaffoldKey?.currentState?.openDrawer(),
+                    ),
               ),
           drawer: _drawerBodyContent,
           bodyBuilder:
@@ -689,7 +712,6 @@ class _NavigationRailPlusState extends State<NavigationRailPlus> {
 
     /// Determines if drawer should close after selection
     bool canPop =
-        widget.navigationGlobalConfig?.mode == NavigationRailMode.drawer &&
         (widget.navigationGlobalConfig?.closeOnSelectDrawerItem ?? true) &&
         Navigator.of(context).canPop();
 
@@ -730,7 +752,7 @@ class _NavigationRailPlusState extends State<NavigationRailPlus> {
                   widget.onDestinationSelected?.call(index);
 
                   /// Close drawer if required
-                  if (canPop) Navigator.of(context).pop();
+                  if (canPop) scaffoldKey?.currentState?.closeDrawer();
                 },
           child: Opacity(
             opacity: item.disabled ? 0.5 : 1,

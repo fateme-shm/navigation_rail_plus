@@ -71,3 +71,9 @@ The format follows **Keep a Changelog** and adheres to **Semantic Versioning**.
 
 * Fix reported bug
 * Change navigation rail class name
+
+
+## [1.0.2]
+
+* Fix reported bug
+* Add custom scaffold data to navigation
