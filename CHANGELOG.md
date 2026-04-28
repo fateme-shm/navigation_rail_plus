@@ -77,3 +77,7 @@ The format follows **Keep a Changelog** and adheres to **Semantic Versioning**.
 
 * Fix reported bug
 * Add custom scaffold data to navigation
+
+## [1.0.3]
+
+* Fix reported bug
