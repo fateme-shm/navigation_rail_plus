@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 
 import '../res/global_config.dart';
 
-class NavigationController extends GetxController {
+class NavigationController {
   // Handle expanded variable
   RxBool isNavExpanded = true.obs;
 

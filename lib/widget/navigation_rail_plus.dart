@@ -10,8 +10,9 @@ import 'package:navigation_rail_plus/res/global_config.dart';
 import 'package:navigation_rail_plus/res/context_extension.dart';
 import 'package:navigation_rail_plus/res/utils/screen_utils.dart';
 import 'package:navigation_rail_plus/enums/navigation_rail_mode.dart';
-import 'package:navigation_rail_plus/controller/navigation_rail_controller.dart';
+import 'package:navigation_rail_plus/controller/navigation_controller.dart';
 import 'package:navigation_rail_plus/model/navigation_rail_plus_destination.dart';
+import 'package:navigation_rail_plus/widget/scaffold/custom_scaffold.dart';
 
 class NavigationRailPlus extends StatefulWidget {
   /// Navigatio header config
@@ -41,6 +42,151 @@ class NavigationRailPlus extends StatefulWidget {
   /// Returns the selected index.
   final ValueChanged<int>? onDestinationSelected;
 
+  ///----------------------------------------------------
+  /// Scaffold data/variable section
+  ///----------------------------------------------------
+
+  /// Scaffold key for controlling drawer programmatically
+  final GlobalKey<ScaffoldState>? scaffoldKey;
+
+  /// AppBar related properties
+
+  /// If you don't need appBar at all
+  final bool needNoAppBar;
+
+  /// Whether to center the title
+  final bool appBarCenterTitle;
+
+  /// Show a loading indicator at AppBar bottom
+  final bool? appBarBottomLoading;
+
+  /// Show divider under AppBar
+  final bool? appBarBottomDivider;
+
+  /// Allow content behind AppBar (e.g. transparent AppBar)
+  final bool extendBodyBehindAppBar;
+
+  /// Reactive loading indicator for AppBar bottom
+  final RxBool? appBarBottomRxLoading;
+
+  /// Title text
+  final String? appBarText;
+
+  /// Custom back button widget
+  final Widget? appBarBackButton;
+
+  /// Title style
+  final TextStyle? appBarTextStyle;
+
+  /// Fully custom AppBar
+  final PreferredSizeWidget? appBar;
+
+  /// Right-side action buttons
+  final List<Widget>? appBarActions;
+
+  /// Color for back button icon
+  final Color? appBarBackButtonColor;
+
+  /// Back button callback
+  final VoidCallback? appBarBackButtonTap;
+
+  /// Note: To use [appBarBackgroundColor], set [appBarForceMaterialTransparency] = false
+  final Color? appBarBackgroundColor;
+
+  /// Space between title appbar and back button
+  final double? appBarTitleSpacing;
+
+  /// Force Material 3 transparency behavior
+  final bool? appBarForceMaterialTransparency;
+
+  /// Whether to apply system overlay style (status bar)
+  final bool needOverlayStyle;
+
+  /// BottomSheet related properties
+
+  /// Custom bottom sheet widget
+  final Widget? bottomSheet;
+
+  /// If you need width of screen bottom sheet;
+  final bool bottomSheetNeedFullWidth;
+  final double? bottomSheetMaxWidth;
+  final double? appBarMaxWidth;
+
+  /// Padding for bottom sheet
+  final double? bottomSheetPaddingBottom;
+
+  /// Bottom sheet background color
+  final Color? bottomSheetBackgroundColor;
+
+  /// Bottom sheet loader
+  final Widget Function(BuildContext context)? bottomSheetLoadingBuilder;
+
+  /// Builders for handling dynamic UI states
+
+  /// Main content
+  final Widget Function(BuildContext context)? bodyBuilder;
+  final double? bodyMaxWidth;
+
+  /// Error content
+  final Widget Function(BuildContext context)? errorBuilder;
+
+  /// Loading content
+  final Widget Function(BuildContext context)? loadingBuilder;
+
+  /// Empty content
+  final Widget Function(BuildContext context)? noContentToShowBuilder;
+
+  /// Flag for error state
+  final bool? isContentFailed;
+
+  /// Flag for loading state
+  final bool? isContentLoading;
+
+  /// Flag for empty state
+  final bool? isNoContentToShow;
+
+  /// Scaffold background
+  final Color? backgroundColor;
+
+  /// Scaffold bottomNavigationBar
+  final Widget? bottomNavigationBar;
+
+  /// Below Scaffold background
+  final Color? underneathBackgroundColor;
+
+  /// Body padding
+  final EdgeInsetsGeometry? padding;
+
+  /// Floating Action Button
+  final Widget? floatingActionButton;
+  final FloatingActionButtonLocation? floatingActionButtonLocation;
+
+  /// SafeArea related properties
+
+  /// Apply SafeArea padding at top
+  final bool isSafeAreaTop;
+
+  /// Drawer safe area bottom
+  final bool isDrawerSafeAreaBottom;
+
+  /// Drawer safe area top
+  final bool isDrawerSafeAreaTop;
+
+  /// Apply SafeArea padding at bottom
+  final bool isSafeAreaBottom;
+
+  /// Pull-to-refresh callback
+  final Function? onRefresh;
+
+  /// If [resizeToAvoidBottomInset] = false
+  /// then the body is not resized when the onscreen keyboard appears,
+  final bool resizeToAvoidBottomInset;
+
+  /// Callback when user tries to pop (back navigation).
+  /// Return `true` to allow pop, `false` to prevent.
+  final bool canPop;
+  final void Function(bool didPop, Object? result)? onPopInvokedWithResult;
+
   const NavigationRailPlus({
     super.key,
     required this.navigationLeadingConfig,
@@ -53,6 +199,72 @@ class NavigationRailPlus extends StatefulWidget {
     this.navigationMainContent,
     this.navigationFooterConfig,
     this.onDestinationSelected,
+
+    ///----------------------------------------------------
+    /// Scaffold data/variable section
+    ///----------------------------------------------------
+    this.scaffoldKey,
+    // App bar related
+    this.appBar,
+    this.appBarText,
+    this.appBarActions,
+    this.appBarTextStyle,
+    this.appBarBackButton,
+    this.appBarTitleSpacing,
+    this.appBarBackButtonTap,
+    this.appBarBackgroundColor,
+    this.appBarBottomRxLoading,
+    this.appBarBackButtonColor,
+    this.needNoAppBar = false,
+    this.appBarCenterTitle = false,
+    this.appBarBottomLoading = false,
+    this.appBarBottomDivider = false,
+    this.needOverlayStyle = true,
+    this.extendBodyBehindAppBar = false,
+    this.appBarForceMaterialTransparency,
+
+    // Bottom sheet related
+    this.bottomSheet,
+    this.bottomSheetPaddingBottom,
+    this.bottomSheetLoadingBuilder,
+    this.bottomSheetBackgroundColor,
+    this.bottomSheetNeedFullWidth = true,
+    this.bottomSheetMaxWidth,
+    this.appBarMaxWidth,
+
+    // Builders for dynamic UI states
+    this.bodyBuilder,
+    this.bodyMaxWidth,
+    this.errorBuilder,
+    this.loadingBuilder,
+    this.noContentToShowBuilder,
+    this.isNoContentToShow = false,
+    this.isContentFailed = false,
+    this.isContentLoading = false,
+
+    // Scaffold related
+    this.padding,
+    this.backgroundColor,
+    this.bottomNavigationBar,
+    this.underneathBackgroundColor,
+
+    // Floating action button related
+    this.floatingActionButton,
+    this.floatingActionButtonLocation,
+
+    // SafeArea related
+    this.isDrawerSafeAreaBottom = true,
+    this.isDrawerSafeAreaTop = true,
+    this.isSafeAreaTop = false,
+    this.isSafeAreaBottom = true,
+
+    // Refresh related
+    this.onRefresh,
+
+    // Pop scop related
+    this.canPop = true,
+    this.onPopInvokedWithResult,
+    this.resizeToAvoidBottomInset = true,
   });
 
   @override
@@ -89,6 +301,8 @@ class _NavigationRailPlusState extends State<NavigationRailPlus> {
       ...?widget.navigationLeadingConfig.scrollableLeadingItems,
     ];
   }
+
+  GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
@@ -151,16 +365,67 @@ class _NavigationRailPlusState extends State<NavigationRailPlus> {
   Widget get _responsiveDrawerWrapper {
     return Builder(
       builder: (context) {
-        return Scaffold(
-          appBar: AppBar(
-            /// Opens navigation drawer
-            leading: IconButton(
-              icon: Icon(CupertinoIcons.line_horizontal_3),
-              onPressed: () => Scaffold.of(context).openDrawer(),
-            ),
-          ),
+        return CustomScaffold(
+          canPop: widget.canPop,
+          scaffoldKey: widget.scaffoldKey ?? scaffoldKey,
+          onPopInvokedWithResult: widget.onPopInvokedWithResult,
+          isSafeAreaTop: widget.isSafeAreaTop,
+          isSafeAreaBottom: widget.isSafeAreaBottom,
+          resizeToAvoidBottomInset: widget.resizeToAvoidBottomInset,
+          extendBodyBehindAppBar: widget.extendBodyBehindAppBar,
+          needNoAppBar: widget.needNoAppBar,
+          appBarText: widget.appBarText,
+          appBarActions: widget.appBarActions,
+          appBarTextStyle: widget.appBarTextStyle,
+          appBarBackButton: widget.appBarBackButton,
+          appBarTitleSpacing: widget.appBarTitleSpacing,
+          appBarBackButtonTap: widget.appBarBackButtonTap,
+          appBarBackgroundColor: widget.appBarBackButtonColor,
+          appBarBottomRxLoading: widget.appBarBottomRxLoading,
+          appBarBackButtonColor: widget.appBarBackButtonColor,
+          appBarCenterTitle: widget.appBarCenterTitle,
+          appBarBottomLoading: widget.appBarBottomLoading,
+          appBarBottomDivider: widget.appBarBottomDivider,
+          needOverlayStyle: widget.needOverlayStyle,
+          appBarForceMaterialTransparency:
+              widget.appBarForceMaterialTransparency,
+          bottomSheet: widget.bottomSheet,
+          bottomSheetPaddingBottom: widget.bottomSheetPaddingBottom,
+          bottomSheetLoadingBuilder: widget.bottomSheetLoadingBuilder,
+          bottomSheetBackgroundColor: widget.bottomSheetBackgroundColor,
+          bottomSheetNeedFullWidth: widget.bottomSheetNeedFullWidth,
+          bottomSheetMaxWidth: widget.bottomSheetMaxWidth,
+          appBarMaxWidth: widget.appBarMaxWidth,
+          bodyMaxWidth: widget.bodyMaxWidth,
+          errorBuilder: widget.errorBuilder,
+          loadingBuilder: widget.loadingBuilder,
+          noContentToShowBuilder: widget.noContentToShowBuilder,
+          isNoContentToShow: widget.isNoContentToShow,
+          isContentFailed: widget.isContentFailed,
+          isContentLoading: widget.isContentLoading,
+          padding: widget.padding,
+          backgroundColor: widget.backgroundColor,
+          bottomNavigationBar: widget.bottomNavigationBar,
+          underneathBackgroundColor: widget.underneathBackgroundColor,
+          floatingActionButton: widget.floatingActionButton,
+          floatingActionButtonLocation: widget.floatingActionButtonLocation,
+          onRefresh: widget.onRefresh,
+          appBar:
+              widget.appBar ??
+              AppBar(
+                /// Opens navigation drawer
+                leading: IconButton(
+                  icon: Icon(CupertinoIcons.line_horizontal_3),
+                  onPressed: () => (widget.scaffoldKey ?? scaffoldKey)
+                      .currentState
+                      ?.openDrawer(),
+                ),
+              ),
           drawer: _drawerBodyContent,
-          body: widget.responsiveBody ?? const SizedBox.shrink(),
+          bodyBuilder:
+              widget.bodyBuilder ??
+              (BuildContext context) =>
+                  widget.responsiveBody ?? const SizedBox.shrink(),
         );
       },
     );
@@ -249,6 +514,8 @@ class _NavigationRailPlusState extends State<NavigationRailPlus> {
       width: widget.navigationGlobalConfig?.drawerWidth,
       backgroundColor: widget.navigationGlobalConfig?.backgroundColor,
       child: SafeArea(
+        bottom: widget.isDrawerSafeAreaBottom,
+        top: widget.isDrawerSafeAreaTop,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -426,6 +693,8 @@ class _NavigationRailPlusState extends State<NavigationRailPlus> {
         (widget.navigationGlobalConfig?.closeOnSelectDrawerItem ?? true) &&
         Navigator.of(context).canPop();
 
+    bool isMobile = context.screenType == DeviceScreenType.mobile;
+
     return MouseRegion(
       onEnter: (_) {
         if (item.disabled) return;
@@ -453,6 +722,7 @@ class _NavigationRailPlusState extends State<NavigationRailPlus> {
         ),
         margin: controller.globalConfig.globalMargin,
         child: InkWell(
+          borderRadius: controller.globalConfig.globalBorderRadius * 2,
           onTap: item.disabled
               ? null
               : () {
@@ -474,7 +744,7 @@ class _NavigationRailPlusState extends State<NavigationRailPlus> {
                         controller.globalConfig.symmetricMargin.vertical * 3,
                   ),
               child: Tooltip(
-                message: widget.navigationLeadingConfig.needTooltip
+                message: !isMobile && widget.navigationLeadingConfig.needTooltip
                     ? item.label
                     : '',
                 child: Row(
