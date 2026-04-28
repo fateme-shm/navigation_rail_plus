@@ -122,26 +122,7 @@ class NavigationRailPlus extends StatefulWidget {
   /// Builders for handling dynamic UI states
 
   /// Main content
-  final Widget Function(BuildContext context)? bodyBuilder;
   final double? bodyMaxWidth;
-
-  /// Error content
-  final Widget Function(BuildContext context)? errorBuilder;
-
-  /// Loading content
-  final Widget Function(BuildContext context)? loadingBuilder;
-
-  /// Empty content
-  final Widget Function(BuildContext context)? noContentToShowBuilder;
-
-  /// Flag for error state
-  final bool? isContentFailed;
-
-  /// Flag for loading state
-  final bool? isContentLoading;
-
-  /// Flag for empty state
-  final bool? isNoContentToShow;
 
   /// Scaffold background
   final Color? backgroundColor;
@@ -231,14 +212,7 @@ class NavigationRailPlus extends StatefulWidget {
     this.appBarMaxWidth,
 
     // Builders for dynamic UI states
-    this.bodyBuilder,
     this.bodyMaxWidth,
-    this.errorBuilder,
-    this.loadingBuilder,
-    this.noContentToShowBuilder,
-    this.isNoContentToShow = false,
-    this.isContentFailed = false,
-    this.isContentLoading = false,
 
     // Scaffold related
     this.padding,
@@ -354,14 +328,39 @@ class _NavigationRailPlusState extends State<NavigationRailPlus> {
 
   /// Layout for tablet/desktop → rail + content
   Widget get _responsiveRailWrapper {
-    return Row(
-      children: [
-        _railBodyContent,
-        const VerticalDivider(thickness: 1, width: 0),
+    return CustomScaffold(
+      canPop: widget.canPop,
+      scaffoldKey: scaffoldKey,
+      onPopInvokedWithResult: widget.onPopInvokedWithResult,
+      isSafeAreaTop: widget.isSafeAreaTop,
+      isSafeAreaBottom: widget.isSafeAreaBottom,
+      resizeToAvoidBottomInset: widget.resizeToAvoidBottomInset,
+      needOverlayStyle: widget.needOverlayStyle,
+      bottomSheet: widget.bottomSheet,
+      bottomSheetPaddingBottom: widget.bottomSheetPaddingBottom,
+      bottomSheetLoadingBuilder: widget.bottomSheetLoadingBuilder,
+      bottomSheetBackgroundColor: widget.bottomSheetBackgroundColor,
+      bottomSheetNeedFullWidth: widget.bottomSheetNeedFullWidth,
+      bottomSheetMaxWidth: widget.bottomSheetMaxWidth,
+      bodyMaxWidth: widget.bodyMaxWidth,
+      padding: widget.padding,
+      backgroundColor: widget.backgroundColor,
+      bottomNavigationBar: widget.bottomNavigationBar,
+      underneathBackgroundColor: widget.underneathBackgroundColor,
+      floatingActionButton: widget.floatingActionButton,
+      floatingActionButtonLocation: widget.floatingActionButtonLocation,
+      onRefresh: widget.onRefresh,
+      bodyBuilder: (BuildContext context) {
+        return Row(
+          children: [
+            _railBodyContent,
+            const VerticalDivider(thickness: 1, width: 0),
 
-        /// Main content area
-        Expanded(child: widget.responsiveBody ?? const SizedBox.shrink()),
-      ],
+            /// Main content area
+            Expanded(child: widget.responsiveBody ?? const SizedBox.shrink()),
+          ],
+        );
+      },
     );
   }
 
@@ -400,12 +399,6 @@ class _NavigationRailPlusState extends State<NavigationRailPlus> {
           bottomSheetMaxWidth: widget.bottomSheetMaxWidth,
           appBarMaxWidth: widget.appBarMaxWidth,
           bodyMaxWidth: widget.bodyMaxWidth,
-          errorBuilder: widget.errorBuilder,
-          loadingBuilder: widget.loadingBuilder,
-          noContentToShowBuilder: widget.noContentToShowBuilder,
-          isNoContentToShow: widget.isNoContentToShow,
-          isContentFailed: widget.isContentFailed,
-          isContentLoading: widget.isContentLoading,
           padding: widget.padding,
           backgroundColor: widget.backgroundColor,
           bottomNavigationBar: widget.bottomNavigationBar,
@@ -445,10 +438,8 @@ class _NavigationRailPlusState extends State<NavigationRailPlus> {
                     ),
               ),
           drawer: _drawerBodyContent,
-          bodyBuilder:
-              widget.bodyBuilder ??
-              (BuildContext context) =>
-                  widget.responsiveBody ?? const SizedBox.shrink(),
+          bodyBuilder: (BuildContext context) =>
+              widget.responsiveBody ?? const SizedBox.shrink(),
         );
       },
     );
