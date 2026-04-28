@@ -309,11 +309,6 @@ NavigationGlobalConfig(
 
 ---
 
-Below is a structured, production-quality **API reference table** covering all public variables
-across your configuration classes and main widget.
-
----
-
 # 📘 API Reference
 
 ## `NavigationRailPlus`
@@ -406,6 +401,183 @@ across your configuration classes and main widget.
 | `drawer` | Displays navigation as a drawer    |
 
 ---
+
+You’ve already documented the navigation layer well — what’s missing is a **clear, structured
+reference for your scaffold system**, which is actually one of the strongest parts of your package.
+
+Below is a **clean, production-ready README table section** for your `CustomScaffold`.
+
+---
+
+# 📦 `CustomScaffold` API Reference
+
+A flexible wrapper around `Scaffold` with built-in support for:
+
+* AppBar customization
+* Bottom sheet handling
+* Loading / error / empty states
+* Pull-to-refresh
+* SafeArea control
+* Overlay styling
+* Drawer integration
+
+---
+
+## 🧱 Core Scaffold
+
+| Property                    | Type                        | Default | Description                                           |
+|-----------------------------|-----------------------------|---------|-------------------------------------------------------|
+| `scaffoldKey`               | `GlobalKey<ScaffoldState>?` | `null`  | Controls scaffold (e.g. open drawer programmatically) |
+| `backgroundColor`           | `Color?`                    | Theme   | Scaffold background color                             |
+| `underneathBackgroundColor` | `Color?`                    | Auto    | Background behind scaffold (used with bottom sheet)   |
+| `padding`                   | `EdgeInsetsGeometry?`       | `0`     | Padding for body                                      |
+| `bottomNavigationBar`       | `Widget?`                   | `null`  | Bottom navigation bar                                 |
+| `drawer`                    | `Widget?`                   | `null`  | Drawer widget                                         |
+| `resizeToAvoidBottomInset`  | `bool`                      | `true`  | Adjust layout when keyboard appears                   |
+
+---
+
+## 📱 AppBar Configuration
+
+| Property                          | Type                   | Default | Description                     |
+|-----------------------------------|------------------------|---------|---------------------------------|
+| `needNoAppBar`                    | `bool`                 | `false` | Removes AppBar entirely         |
+| `appBar`                          | `PreferredSizeWidget?` | `null`  | Fully custom AppBar             |
+| `appBarText`                      | `String?`              | `null`  | Title text                      |
+| `appBarTextStyle`                 | `TextStyle?`           | Theme   | Title text style                |
+| `appBarCenterTitle`               | `bool`                 | `false` | Centers title                   |
+| `appBarActions`                   | `List<Widget>?`        | `null`  | Right-side actions              |
+| `appBarBackButton`                | `Widget?`              | Default | Custom back button              |
+| `appBarBackButtonTap`             | `VoidCallback?`        | Pop     | Back button callback            |
+| `appBarBackButtonColor`           | `Color?`               | Theme   | Back button color               |
+| `appBarTitleSpacing`              | `double?`              | Default | Spacing before title            |
+| `appBarBackgroundColor`           | `Color?`               | Theme   | AppBar background               |
+| `appBarForceMaterialTransparency` | `bool?`                | `true`  | Enables Material 3 transparency |
+| `extendBodyBehindAppBar`          | `bool`                 | `false` | Allows body behind AppBar       |
+| `needOverlayStyle`                | `bool`                 | `true`  | Applies system status bar style |
+
+---
+
+## 🔄 AppBar Bottom State (Loading / Divider)
+
+| Property                | Type      | Default | Description                          |
+|-------------------------|-----------|---------|--------------------------------------|
+| `appBarBottomLoading`   | `bool?`   | `false` | Shows loading indicator below AppBar |
+| `appBarBottomDivider`   | `bool?`   | `false` | Shows divider under AppBar           |
+| `appBarBottomRxLoading` | `RxBool?` | `null`  | Reactive loading state (GetX)        |
+
+---
+
+## 📊 Content State Handling
+
+| Property                 | Type                             | Default | Description                  |
+|--------------------------|----------------------------------|---------|------------------------------|
+| `bodyBuilder`            | `Widget Function(BuildContext)?` | `null`  | Main content builder         |
+| `loadingBuilder`         | `Widget Function(BuildContext)?` | Default | Custom loading widget        |
+| `errorBuilder`           | `Widget Function(BuildContext)?` | Empty   | Custom error widget          |
+| `noContentToShowBuilder` | `Widget Function(BuildContext)?` | Empty   | Empty state widget           |
+| `isContentLoading`       | `bool?`                          | `false` | Shows loading state          |
+| `isContentFailed`        | `bool?`                          | `false` | Shows error state            |
+| `isNoContentToShow`      | `bool?`                          | `false` | Shows empty state            |
+| `bodyMaxWidth`           | `double?`                        | `null`  | Constrains max width of body |
+
+---
+
+## 🔄 Pull-To-Refresh
+
+| Property    | Type        | Default | Description                      |
+|-------------|-------------|---------|----------------------------------|
+| `onRefresh` | `Function?` | `null`  | Enables pull-to-refresh behavior |
+
+---
+
+## 📥 Bottom Sheet
+
+| Property                     | Type                             | Default | Description                 |
+|------------------------------|----------------------------------|---------|-----------------------------|
+| `bottomSheet`                | `Widget?`                        | `null`  | Bottom sheet content        |
+| `bottomSheetLoadingBuilder`  | `Widget Function(BuildContext)?` | `null`  | Bottom sheet during loading |
+| `bottomSheetBackgroundColor` | `Color?`                         | Theme   | Background color            |
+| `bottomSheetPaddingBottom`   | `double?`                        | `null`  | Bottom padding              |
+| `bottomSheetNeedFullWidth`   | `bool`                           | `true`  | Stretch to full width       |
+| `bottomSheetMaxWidth`        | `double?`                        | `null`  | Max width constraint        |
+
+---
+
+## 🎯 Floating Action Button
+
+| Property                       | Type                            | Default | Description     |
+|--------------------------------|---------------------------------|---------|-----------------|
+| `floatingActionButton`         | `Widget?`                       | `null`  | Floating button |
+| `floatingActionButtonLocation` | `FloatingActionButtonLocation?` | Default | FAB position    |
+
+---
+
+## 🛡️ SafeArea Control
+
+| Property           | Type   | Default | Description                |
+|--------------------|--------|---------|----------------------------|
+| `isSafeAreaTop`    | `bool` | `false` | Applies SafeArea at top    |
+| `isSafeAreaBottom` | `bool` | `true`  | Applies SafeArea at bottom |
+
+---
+
+## 🔙 Navigation / Pop Control
+
+| Property                 | Type                       | Default | Description                    |
+|--------------------------|----------------------------|---------|--------------------------------|
+| `canPop`                 | `bool`                     | `true`  | Allows back navigation         |
+| `onPopInvokedWithResult` | `Function(bool, Object?)?` | `null`  | Callback when pop is triggered |
+
+---
+
+# 🧠 Key Notes
+
+* `bodyBuilder` is **required** for meaningful UI
+* State priority:
+
+  ```
+  Loading → Error → Empty → Content
+  ```
+* `onRefresh` only works if scrollable widget exists
+* `bottomSheet` adapts automatically based on loading/error state
+* `underneathBackgroundColor` ensures seamless UI behind bottom sheet
+
+---
+
+# ✅ Example Usage
+
+```
+CustomScaffold(
+  appBarText: 'Dashboard',
+  appBarBottomRxLoading: controller.isLoading,
+  onRefresh: controller.fetchData,
+  isContentLoading: controller.isLoading.value,
+  bodyBuilder: (context) {
+    return ListView(
+      children: [
+        Text('Content'),
+      ],
+    );
+  },
+  floatingActionButton: FloatingActionButton(
+    onPressed: () {},
+    child: Icon(Icons.add),
+  ),
+)
+```
+
+---
+
+# 🔥 Final Note
+
+This `CustomScaffold` is not just a wrapper — it's effectively a **UI state orchestration layer**.
+
+If you want to take it to the next level, consider:
+
+* Extracting **state config into a separate class**
+* Supporting **streams (not only RxBool)**
+* Reducing boolean flags with a single `enum ViewState { loading, error, empty, data }`
 
 # 🧠 Notes for Developers
 
