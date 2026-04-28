@@ -336,12 +336,6 @@ class _NavigationRailPlusState extends State<NavigationRailPlus> {
       isSafeAreaBottom: widget.isSafeAreaBottom,
       resizeToAvoidBottomInset: widget.resizeToAvoidBottomInset,
       needOverlayStyle: widget.needOverlayStyle,
-      bottomSheet: widget.bottomSheet,
-      bottomSheetPaddingBottom: widget.bottomSheetPaddingBottom,
-      bottomSheetLoadingBuilder: widget.bottomSheetLoadingBuilder,
-      bottomSheetBackgroundColor: widget.bottomSheetBackgroundColor,
-      bottomSheetNeedFullWidth: widget.bottomSheetNeedFullWidth,
-      bottomSheetMaxWidth: widget.bottomSheetMaxWidth,
       bodyMaxWidth: widget.bodyMaxWidth,
       padding: widget.padding,
       backgroundColor: widget.backgroundColor,
@@ -350,6 +344,7 @@ class _NavigationRailPlusState extends State<NavigationRailPlus> {
       floatingActionButton: widget.floatingActionButton,
       floatingActionButtonLocation: widget.floatingActionButtonLocation,
       onRefresh: widget.onRefresh,
+      needNoAppBar: true,
       bodyBuilder: (BuildContext context) {
         return Row(
           children: [
