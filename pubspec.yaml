@@ -1,12 +1,12 @@
 name: navigation_rail_plus
 description: "An enhanced NavigationRail widget for Flutter with extended customization, improved flexibility, and responsive behavior."
-version: 1.0.4
+version: 1.0.5
 homepage: https://github.com/fateme-shm/navigation_rail_plus
 repository: https://github.com/fateme-shm/navigation_rail_plus
 issue_tracker: https://github.com/fateme-shm/navigation_rail_plus/issues
 
 environment:
-  sdk: ^3.11.5
+  sdk: ">=3.11.5 <4.0.0"
   flutter: ">=1.17.0"
 
 dependencies:

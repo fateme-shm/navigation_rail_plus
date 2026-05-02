@@ -84,3 +84,8 @@ The format follows **Keep a Changelog** and adheres to **Semantic Versioning**.
 ## [1.0.4]
 
 * Fix reported bug
+
+## [1.0.5]
+
+* Fix reported bug
+* Change flutter sdk version environment
