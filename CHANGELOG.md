@@ -89,3 +89,7 @@ The format follows **Keep a Changelog** and adheres to **Semantic Versioning**.
 
 * Fix reported bug
 * Change flutter sdk version environment
+
+## [1.0.6]
+
+* Change flutter sdk version environment
