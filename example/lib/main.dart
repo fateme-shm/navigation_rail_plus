@@ -2,10 +2,11 @@ import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:navigation_rail_plus/navigation_rail_plus.dart';
 
-
 void main() {
   runApp(const MyApp());
 }
+
+final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
 class AppController extends GetxController {
   var selectedIndex = 0.obs;
@@ -22,7 +23,6 @@ class AppController extends GetxController {
   }
 }
 
-
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       title: 'NavigationRailPlus Advanced Example',
-      home: const ManualNavigationRail(),
+      home: const AutomaticNavigationRail(),
     );
   }
 }
@@ -44,6 +44,7 @@ class AutomaticNavigationRail extends StatelessWidget {
 
     return Obx(() {
       return NavigationRailPlus(
+        externalScaffoldKey: scaffoldKey,
 
         /// ----------------------------
         /// Navigation Config
@@ -90,6 +91,7 @@ class AutomaticNavigationRail extends StatelessWidget {
         navigationGlobalConfig: NavigationGlobalConfig(
           responsiveLayout: true,
           backgroundColor: Colors.grey.shade50,
+          endDrawerWidth: context.screenWidth * 0.5,
         ),
 
         /// ----------------------------
@@ -116,11 +118,10 @@ class AutomaticNavigationRail extends StatelessWidget {
             itemCount: 30,
             physics: const AlwaysScrollableScrollPhysics(),
             padding: const EdgeInsets.all(16),
-            itemBuilder: (_, i) =>
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [Text('Item ${i + 1}'), const SizedBox(height: 12)],
-                ),
+            itemBuilder: (_, i) => Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [Text('Item ${i + 1}'), const SizedBox(height: 12)],
+            ),
           ),
         ],
 
@@ -128,9 +129,13 @@ class AutomaticNavigationRail extends StatelessWidget {
         /// Extra UI Features
         /// ----------------------------
         floatingActionButton: FloatingActionButton(
-          onPressed: () => Get.snackbar('FAB', 'Clicked'),
+          onPressed: () {
+            scaffoldKey.currentState?.openEndDrawer();
+          },
           child: const Icon(Icons.add),
         ),
+
+        endDrawerContent: Center(child: Text('Sample End Drawer')),
 
         bottomSheet: Container(
           height: 60,
@@ -281,6 +286,7 @@ class _ManualDrawerState extends State<ManualDrawer> {
 
   Widget get _buildDrawer {
     return NavigationRailPlus(
+      externalScaffoldKey: scaffoldKey,
       navigationHeaderConfig: NavigationHeaderConfig(header: Text('Header')),
       selectedIndex: _selectedIndex,
       navigationLeadingConfig: NavigationLeadingConfig(
@@ -341,8 +347,8 @@ class _ManualDrawerState extends State<ManualDrawer> {
         mode: NavigationRailMode.drawer,
         drawerWidth: context.screenWidth * 0.8,
         backgroundColor: context.appColorScheme.surfaceContainerLowest,
+        endDrawerWidth: context.screenHeight,
       ),
     );
   }
 }
-

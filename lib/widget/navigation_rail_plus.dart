@@ -151,6 +151,15 @@ class NavigationRailPlus extends StatefulWidget {
   /// Drawer safe area top
   final bool isDrawerSafeAreaTop;
 
+  /// End Drawer safe area bottom
+  final bool isEndDrawerSafeAreaBottom;
+
+  /// End Drawer safe area top
+  final bool isEndDrawerSafeAreaTop;
+
+  // End Drawer Custom content
+  final Widget? endDrawerContent;
+
   /// Apply SafeArea padding at bottom
   final bool isSafeAreaBottom;
 
@@ -227,8 +236,13 @@ class NavigationRailPlus extends StatefulWidget {
     // SafeArea related
     this.isDrawerSafeAreaBottom = true,
     this.isDrawerSafeAreaTop = true,
+    this.isEndDrawerSafeAreaBottom = true,
+    this.isEndDrawerSafeAreaTop = true,
     this.isSafeAreaTop = false,
     this.isSafeAreaBottom = true,
+
+    // End Drawer related
+    this.endDrawerContent,
 
     // Refresh related
     this.onRefresh,
@@ -345,6 +359,7 @@ class _NavigationRailPlusState extends State<NavigationRailPlus> {
       floatingActionButtonLocation: widget.floatingActionButtonLocation,
       onRefresh: widget.onRefresh,
       needNoAppBar: true,
+      endDrawer: _endDrawerBodyContent,
       bodyBuilder: (BuildContext context) {
         return Row(
           children: [
@@ -562,6 +577,24 @@ class _NavigationRailPlusState extends State<NavigationRailPlus> {
             ],
           ],
         ),
+      ),
+    );
+  }
+
+  /// Drawer-based navigation UI
+  Widget get _endDrawerBodyContent {
+    if (widget.endDrawerContent == null) {
+      return SizedBox.shrink();
+    }
+
+    // show custom endDrawerContent if there is any
+    return Drawer(
+      width: widget.navigationGlobalConfig?.endDrawerWidth,
+      backgroundColor: widget.navigationGlobalConfig?.backgroundColor,
+      child: SafeArea(
+        bottom: widget.isEndDrawerSafeAreaBottom,
+        top: widget.isEndDrawerSafeAreaTop,
+        child: widget.endDrawerContent!,
       ),
     );
   }

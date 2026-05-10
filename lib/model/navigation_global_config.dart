@@ -21,6 +21,9 @@ class NavigationGlobalConfig {
   /// Explicit width of the drawer when [mode] is drawer.
   final double? drawerWidth;
 
+  /// Explicit width of the EndDrawer when [mode] is end drawer.
+  final double? endDrawerWidth;
+
   /// Width of the navigation rail in collapsed state.
   final double collapsedRailWidth;
 
@@ -40,6 +43,8 @@ class NavigationGlobalConfig {
     this.backgroundColor,
 
     this.drawerWidth,
+    this.endDrawerWidth,
+
     this.collapsedRailWidth = 50,
     this.expandedRailWidth = 250,
 

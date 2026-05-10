@@ -146,6 +146,7 @@ class CustomScaffold extends StatelessWidget {
 
   /// Drawer section
   final Widget? drawer;
+  final Widget? endDrawer;
 
   const CustomScaffold({
     super.key,
@@ -213,6 +214,7 @@ class CustomScaffold extends StatelessWidget {
 
     /// Drawer variable
     this.drawer,
+    this.endDrawer,
   });
 
   /// Refresh handler for pull-to-refresh
@@ -317,6 +319,7 @@ class CustomScaffold extends StatelessWidget {
             floatingActionButton: floatingActionButton,
             floatingActionButtonLocation: floatingActionButtonLocation,
             drawer: drawer,
+            endDrawer: endDrawer,
             bottomSheet: _buildBottomSheet(context),
           ),
         ),
