@@ -478,6 +478,16 @@ class _NavigationRailPlusState extends State<NavigationRailPlus> {
               /// Header section
               if (widget.navigationHeaderConfig != null) ...[
                 _railHeaderContent,
+
+                if (controller.isNavExpanded.value &&
+                    widget.navigationHeaderConfig?.needHeaderDivider ==
+                        true) ...[
+                  Divider(
+                    color:
+                        widget.navigationHeaderConfig?.dividerColor ??
+                        context.appColorScheme.secondaryContainer,
+                  ),
+                ],
               ],
 
               /// Fix leading section
@@ -549,6 +559,15 @@ class _NavigationRailPlusState extends State<NavigationRailPlus> {
             if (widget.navigationHeaderConfig != null) ...[
               const SizedBox(width: 14),
               widget.navigationHeaderConfig?.header ?? const SizedBox.shrink(),
+
+              if (controller.isNavExpanded.value &&
+                  widget.navigationHeaderConfig?.needHeaderDivider == true) ...[
+                Divider(
+                  color:
+                      widget.navigationHeaderConfig?.dividerColor ??
+                      context.appColorScheme.secondaryContainer,
+                ),
+              ],
             ],
 
             /// Fix leading section
@@ -716,10 +735,14 @@ class _NavigationRailPlusState extends State<NavigationRailPlus> {
     bool isHovered = hoveredIndex == index;
     bool isSelected = index == selectedIndex && index < _allDestinations.length;
 
+    /// Is drawer mode or not
+    bool isDrawerMode =
+        (widget.navigationGlobalConfig?.responsiveLayout ?? true)
+        ? context.screenType == DeviceScreenType.mobile
+        : widget.navigationGlobalConfig?.mode == NavigationRailMode.drawer;
+
     /// Determines whether label should be visible
-    bool needToShowLabel =
-        widget.navigationGlobalConfig?.mode == NavigationRailMode.drawer ||
-        controller.isNavExpanded.value;
+    bool needToShowLabel = isDrawerMode || controller.isNavExpanded.value;
 
     /// Colors
     Color leadingColor =

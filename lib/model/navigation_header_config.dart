@@ -20,6 +20,12 @@ class NavigationHeaderConfig {
   /// Color applied to [headerIcon].
   final Color? headerIconColor;
 
+  /// Divider color under header
+  final Color? dividerColor;
+
+  /// Divider under header
+  final bool needHeaderDivider;
+
   /// Icon used to toggle between expanded and collapsed rail states.
   final Icon? toggleNavigationIcon;
 
@@ -29,5 +35,7 @@ class NavigationHeaderConfig {
     this.headerIconSize,
     this.headerIconColor,
     this.toggleNavigationIcon,
+    this.dividerColor,
+    this.needHeaderDivider = false,
   });
 }

@@ -97,3 +97,8 @@ The format follows **Keep a Changelog** and adheres to **Semantic Versioning**.
 ## [1.1.0]
 
 * Add end drawer compatibility for desktop
+
+## [1.1.1]
+
+* Fix reported bug
+* Add header divider
