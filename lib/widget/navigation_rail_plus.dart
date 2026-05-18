@@ -488,6 +488,15 @@ class _NavigationRailPlusState extends State<NavigationRailPlus> {
                         context.appColorScheme.secondaryContainer,
                   ),
                 ],
+
+                /// Under header widget
+                if (controller.isNavExpanded.value) ...[
+                  widget.navigationHeaderConfig?.headerTrailing ??
+                      const SizedBox.shrink(),
+                ] else ...[
+                  widget.navigationHeaderConfig?.headerCollapsedTrailing ??
+                      const SizedBox.shrink(),
+                ],
               ],
 
               /// Fix leading section
@@ -567,6 +576,15 @@ class _NavigationRailPlusState extends State<NavigationRailPlus> {
                       widget.navigationHeaderConfig?.dividerColor ??
                       context.appColorScheme.secondaryContainer,
                 ),
+              ],
+
+              /// Under header widget
+              if (controller.isNavExpanded.value) ...[
+                widget.navigationHeaderConfig?.headerTrailing ??
+                    const SizedBox.shrink(),
+              ] else ...[
+                widget.navigationHeaderConfig?.headerCollapsedTrailing ??
+                    const SizedBox.shrink(),
               ],
             ],
 

@@ -52,7 +52,11 @@ class AutomaticNavigationRail extends StatelessWidget {
         selectedIndex: controller.selectedIndex.value,
         onDestinationSelected: controller.changeIndex,
 
-        navigationHeaderConfig: NavigationHeaderConfig(header: Text('My App')),
+        navigationHeaderConfig: NavigationHeaderConfig(
+          header: Text('My App'),
+          headerTrailing: Text('This is header trailing'),
+          headerCollapsedTrailing: Icon(Icons.abc),
+        ),
 
         navigationLeadingConfig: NavigationLeadingConfig(
           fixLeadingItems: [
@@ -198,7 +202,11 @@ class _ManualNavigationRailState extends State<ManualNavigationRail> {
 
   Widget get _buildNavigationRailPlus {
     return NavigationRailPlus(
-      navigationHeaderConfig: NavigationHeaderConfig(header: Text('Header')),
+      navigationHeaderConfig: NavigationHeaderConfig(
+        header: Text('Header'),
+        headerTrailing: Text('This is header trailing'),
+        headerCollapsedTrailing: Icon(Icons.abc),
+      ),
       selectedIndex: _selectedIndex,
       navigationLeadingConfig: NavigationLeadingConfig(
         fixLeadingItems: [
@@ -287,7 +295,11 @@ class _ManualDrawerState extends State<ManualDrawer> {
   Widget get _buildDrawer {
     return NavigationRailPlus(
       externalScaffoldKey: scaffoldKey,
-      navigationHeaderConfig: NavigationHeaderConfig(header: Text('Header')),
+      navigationHeaderConfig: NavigationHeaderConfig(
+        header: Text('Header'),
+        headerTrailing: Text('This is header trailing'),
+        headerCollapsedTrailing: Icon(Icons.abc),
+      ),
       selectedIndex: _selectedIndex,
       navigationLeadingConfig: NavigationLeadingConfig(
         fixLeadingItems: [

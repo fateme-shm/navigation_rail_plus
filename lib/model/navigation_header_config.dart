@@ -29,6 +29,12 @@ class NavigationHeaderConfig {
   /// Icon used to toggle between expanded and collapsed rail states.
   final Icon? toggleNavigationIcon;
 
+  /// Widget that is under header
+  final Widget? headerTrailing;
+
+  /// Widget that is under header when rail is collapsed
+  final Widget? headerCollapsedTrailing;
+
   NavigationHeaderConfig({
     this.header,
     this.headerIcon,
@@ -37,5 +43,7 @@ class NavigationHeaderConfig {
     this.toggleNavigationIcon,
     this.dividerColor,
     this.needHeaderDivider = false,
+    this.headerTrailing,
+    this.headerCollapsedTrailing,
   });
 }
