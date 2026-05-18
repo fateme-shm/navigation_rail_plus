@@ -102,3 +102,7 @@ The format follows **Keep a Changelog** and adheres to **Semantic Versioning**.
 
 * Fix reported bug
 * Add header divider
+
+## [1.1.2]
+
+* Add header trailing widget under header section
