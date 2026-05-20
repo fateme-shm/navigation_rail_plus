@@ -795,7 +795,7 @@ class _NavigationRailPlusState extends State<NavigationRailPlus> {
         /// Hover & selected background styling
         decoration: BoxDecoration(
           borderRadius: controller.globalConfig.globalBorderRadius * 2,
-          color: isHovered || (isSelected && index != 0)
+          color: isHovered || isSelected
               ? (widget.navigationLeadingConfig.leadingHoverColor ??
                     context.appColorScheme.outlineVariant.withValues(
                       alpha: 0.2,

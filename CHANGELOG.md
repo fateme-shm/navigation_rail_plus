@@ -106,3 +106,8 @@ The format follows **Keep a Changelog** and adheres to **Semantic Versioning**.
 ## [1.1.2]
 
 * Add header trailing widget under header section
+
+
+## [1.1.3]
+
+* Fix first selected index in nav rail
